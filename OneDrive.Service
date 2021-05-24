@@ -1,24 +1,24 @@
 [Unit]
 Description=OneDrive (rclone)
-AssertPathIsDirectory=home/USERNAME/mnt/OneDrive
+AssertPathIsDirectory=/home/coreyo/mnt/OneDrive
 After=Networkd.service
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/rclone mount \
-        --config=/home/USERNAME/.config/rclone/rclone.conf \
+        --config=/home/coreyo/.config/rclone/rclone.conf \
         --allow-other \
         --vfs-cache-mode full \
         --vfs-cache-max-size 25 \
         --drive-use-trash \
-        --log-level Error \
-        --log-file /tmp/rclone-onedrive.log \
-        --cache-info-age=360m onedrive:/ /home/USERNAME/mnt/OneDrive
-ExecStop=/bin/fusermount -u home/USERNAME/mnt/OneDrive
+        --log-level INFO \
+        --log-file /tmp/onedrive.log \
+        --cache-info-age=360m onedrive: /home/coreyo/mnt/OneDrive
+ExecStop=/bin/fusermount -u /home/coreyo/mnt/OneDrive
 Restart=always
 RestartSec=10
+User=coreyo
+Group=coreyo
 
 [Install]
 WantedBy=default.target
-
-
