@@ -12,12 +12,12 @@ ExecStart=/usr/bin/rclone mount \
         --drive-use-trash \
         --log-level INFO \
         --log-file /tmp/onedrive.log \
-        --cache-info-age=360m onedrive: /home/coreyo/mnt/OneDrive
-ExecStop=/bin/fusermount -u /home/coreyo/mnt/OneDrive
-Restart=always
+        --cache-info-age=360m "onedrive:" "/home/coreyo/mnt/OneDrive"
+ExecStop=/bin/fusermount -uz /home/coreyo/mnt/OneDrive
+Restart=on-failure
 RestartSec=10
 User=coreyo
 Group=coreyo
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
